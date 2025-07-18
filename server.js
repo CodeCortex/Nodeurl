@@ -6,14 +6,21 @@ const cors = require("cors");
 const app = express();
 const PORT = 5003;
 
-app.use(cors());
 app.use(express.json());
+app.use(cors());
+
+// var corsOptions={
+//   origin: 'https://bhimamobility.com',
+//   optionsSuccessStatus: 200 
+// }
 
 app.get('/', (req, res) => {
   res.send("It is running successfully");
 });
 
-app.post("/api/getdata", async (req, res) => {
+// var tex=null; //
+
+app.post("/api/getdata" , async (req, res) => {
   const { url } = req.body;
   console.log("URL:", url);
 
@@ -28,6 +35,7 @@ app.post("/api/getdata", async (req, res) => {
     $('[style*="display:none"], [style*="visibility:hidden"]').remove();
 
     const text = $("body").text().replace(/\s{2,}/g, " ").trim();
+    tex= text;
 
     res.json({ success: true, content: text });
   } catch (error) {
@@ -36,15 +44,18 @@ app.post("/api/getdata", async (req, res) => {
   }
 });
 
-
-const d = {
-  name: "roshan jaiswal",
-  age: "23"
-};
-
-app.get('/api/d', async (req, res) => {
-  res.json({data:d}); 
-});
+// app.get('/getd', cors(corsOptions) , async(req, res)=>{
+//   try {
+//     if(!tex){
+//       return res.status(400).json({message: false, message:"Post is not working"});
+//     }
+//     res.send(tex)
+//   } catch (error) {
+//     res.send("got error in tex " +  error.message)
+    
+//   }
+  
+// })
 
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);
